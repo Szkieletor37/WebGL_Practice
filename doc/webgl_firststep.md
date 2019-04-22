@@ -1,0 +1,53 @@
+- HTML
+	- write `<script src="javascript_source_file.js">`
+	- write `<script id="vertex-shader" type="x-shader/x-vertex">`
+		- write GLSL from here
+		- declare variables
+			- `attribute`: variables to pass to vertex shader
+			- `uniform`: 	 global vars
+			- `varying`: 	 variables to pass from vertex shader to fragment shader
+		- write `main()`
+			- assign vertexes to `gl_Position`
+	- write `<script id="fragment-shader" type="x-shader/x-fragment">`
+	 	- write GLSL from here
+		- declare precision (ex. mediump float)
+		- declare variables (= `varying`)
+		- write `main()`
+			- assign color vector to `gl_Flagcolor`
+	- `<canvas id="canvas"></canvas>` in `<body>`
+
+- Javascript
+	- assign `document.getElementById('canvas')`
+		- declare canvas's size by `foo.width`, `foo.height`
+	- create WebGLRenderingContext by `foo.getContext("webgl")`
+	- define `create_shader(id)`
+		- `gl.createShader(type)`
+		- assign source by `gl.shaderSource`
+		- compile shader by `gl.compileShader`
+	- call `create_shader()` 2 times (vertex, fragment for each)
+	- define `create_program(v_shader, f_shader)`
+		- `gl.createProgram()`
+		- call `gl.attachShader()` 2 times (vertex, fragment for each)
+		- link 2 shaders by `gl.linkProgram()`
+		- enable the program by `gl.useProgram`
+	- call `create_program()`
+	- declare attribute location
+		- if use multiple locations, use an array
+		- `gl.getAttribLocation()`
+	- declare attribute stride
+	 	- the dimension of the data 
+	- declare variables actually passing to Shaders
+	- create vertex buffer object (=vbo)
+		- `gl.createBuffer()`
+		- bind a resource to a bind point by `gl.bindBuffer()`
+		- put data in that buffer by referencing it through the bind point by `gl.bufferData()`
+		- optional: {bind a buffer to null}
+	- clear the canvas by `gl.clearColor()`, `gl.clear()`
+	- take data from the buffer and supply it to the attribute in the shader
+		- (if buffer is unbind) binding buffer
+		- enable attribute locations by `gl.enableVertexAttribArray()`
+		- specify how to pull data out 
+			- `gl.vertexAttribPointer(attL, size, type ,normalize, stride, offset)`
+	- finally ask WebGL to execute our GLSL program
+		- `gl.drawArrays(primitiveType, offset, count)`
+

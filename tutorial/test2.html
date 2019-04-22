@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>WebGL TEST</title>
+    <script src="script2.js"> </script>
+
+    <script id="vs" type="x-shader/x-vertex">
+attribute vec4 position;
+
+void main(void){
+	gl_Position = position;
+}
+    </script>
+
+    <script id="fs" type="x-shader/x-fragment">
+precision mediump float;
+
+void main(void){
+	gl_FragColor = vec4(1, 0, 0.5, 1);
+}
+    </script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+  </body>
+
+</html>
